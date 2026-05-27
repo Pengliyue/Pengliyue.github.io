@@ -44,6 +44,7 @@
         .header-quote {
             font-size: 18px;
             font-weight: 500;
+            transition: var(--transition);
         }
         .header-actions {
             display: flex;
@@ -124,8 +125,8 @@
             align-items: center;
             gap: 8px;
             margin-top: 10px;
-            color: var(--brown);
             font-weight: 500;
+            transition: var(--transition);
         }
         .week-progress {
             width: 120px;
@@ -136,9 +137,9 @@
             width: 100%;
             height: 100%;
             border-radius: 50%;
-            background: conic-gradient(var(--brown) 30%, transparent 0%);
             mask: radial-gradient(white 65%, transparent 0%);
             -webkit-mask: radial-gradient(white 65%, transparent 0%);
+            transition: background 0.3s ease;
         }
         .timer-section .timer {
             font-size: 60px;
@@ -149,7 +150,6 @@
             justify-content: space-between;
         }
         .timer-btn {
-            background-color: var(--brown);
             color: white;
             border: none;
             padding: 15px 40px;
@@ -159,6 +159,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            transition: background-color 0.3s ease;
         }
         .activity-item {
             display: flex;
@@ -227,168 +228,440 @@
             resize: none;
             margin-top: 10px;
         }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
     </style>
 </head>
 <body>
-
-<div class="header">
-    <div class="header-quote">保持热爱，稳步前行</div>
-    <div class="header-actions">
-        <button class="moon-btn" id="toggleDark">🌙</button>
-        <div class="user-circle">P</div>
-    </div>
-</div>
-
-<div class="tabs">
-    <button class="tab active" data-tab="all">全部</button>
-    <button class="tab" data-tab="study">📚 学习</button>
-    <button class="tab" data-tab="sport">🏃 运动</button>
-    <button class="tab" data-tab="code">💻 编程</button>
-</div>
-
-<div class="card">
-    <div class="date-header">
-        <div class="date-info">
-            <div class="day">27</div>
-            <div class="month">May 2026</div>
-            <div class="streak">🔥 连续打卡 2 天</div>
-        </div>
-        <div class="week-progress">
-            <div class="progress-ring"></div>
-            <div style="text-align:center;margin-top:10px;color:var(--muted);">本周进度</div>
+    <div class="header">
+        <div class="header-quote" id="quote">你的吃饭家伙，也是你满足好奇心的家伙</div>
+        <div class="header-actions">
+            <button class="moon-btn" id="toggleDark">🌙</button>
+            <div class="user-circle">K</div>
         </div>
     </div>
-</div>
 
-<div class="card timer-section">
-    <div style="display:flex;justify-content:space-between;align-items:center;">
-        <div style="color:var(--muted);font-size:16px;">专注计时器</div>
-    </div>
-    <div class="timer">
-        <span>00:00</span>
-        <button class="timer-btn">▶ Start</button>
-    </div>
-</div>
-
-<div class="card">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
-        <div style="color:var(--muted);font-size:16px;">今日任务</div>
-        <div style="color:var(--muted);">剩余 5 天</div>
+    <div class="tabs">
+        <button class="tab active" data-tab="fluency">Fluency</button>
+        <button class="tab" data-tab="daily">🌿 日常</button>
+        <button class="tab" data-tab="writer">✍️ 小说家</button>
+        <button class="tab" data-tab="wod">💻 SmallWOD</button>
     </div>
 
-    <div class="activity-list">
-        <div class="activity-item" data-cate="study">
-            <div class="activity-left">
-                <div class="checkbox"></div>
-                <div class="activity-info">
-                    <h4>📖 阅读书籍</h4>
-                    <p>每日阅读30分钟</p>
-                    <div class="progress-dots">
-                        <div class="dot filled" style="background:#c45555;"></div>
-                        <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+    <!-- Fluency 模块 -->
+    <div class="tab-content active" id="fluency">
+        <div class="card">
+            <div class="date-header">
+                <div class="date-info">
+                    <div class="day">27</div>
+                    <div class="month">May 2026</div>
+                    <div class="streak" style="color: #b87d3b;">🔥 2 DAYS STREAK</div>
+                </div>
+                <div class="week-progress">
+                    <div class="progress-ring" style="background: conic-gradient(#b87d3b 30%, transparent 0%);"></div>
+                    <div style="text-align: center; margin-top: 10px; color: var(--muted);">THIS WEEK</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card timer-section">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div style="color: var(--muted); font-size: 16px;">01 TIMER</div>
+            </div>
+            <div class="timer">
+                <span>00:00</span>
+                <button class="timer-btn" style="background-color: #b87d3b;">▶ Start</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <div style="color: var(--muted); font-size: 16px;">02 TODAY'S ACTIVITIES</div>
+                <div style="color: var(--muted);">5D LEFT</div>
+            </div>
+
+            <div class="activity-item">
+                <div class="activity-left">
+                    <div class="checkbox"></div>
+                    <div class="activity-info">
+                        <h4>🛠️ Vibe coding</h4>
+                        <p>用AI协作构建实际项</p>
+                        <div class="progress-dots">
+                            <div class="dot filled" style="background-color: #c45555;"></div>
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                        </div>
                     </div>
                 </div>
+                <div class="activity-right" style="color: #b87d3b;">1/4</div>
             </div>
-            <div class="activity-right">1/4</div>
-        </div>
 
-        <div class="activity-item" data-cate="code">
-            <div class="activity-left">
-                <div class="checkbox"></div>
-                <div class="activity-info">
-                    <h4>💻 练习编程</h4>
-                    <p>学习Git & 网页开发</p>
-                    <div class="progress-dots">
-                        <div class="dot filled" style="background:#6a9955;"></div>
-                        <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+            <div class="activity-item">
+                <div class="activity-left">
+                    <div class="checkbox"></div>
+                    <div class="activity-info">
+                        <h4>📡 AI Sensemaking</h4>
+                        <p>理解AI世界正在发生什么</p>
+                        <div class="progress-dots">
+                            <div class="dot filled" style="background-color: #6a9955;"></div>
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                        </div>
                     </div>
                 </div>
+                <div class="activity-right" style="color: #b87d3b;">1/4</div>
             </div>
-            <div class="activity-right">1/4</div>
-        </div>
 
-        <div class="activity-item" data-cate="study">
-            <div class="activity-left">
-                <div class="checkbox"></div>
-                <div class="activity-info">
-                    <h4>✍️ 背诵单词</h4>
-                    <p>背诵新单词+复习</p>
-                    <div class="progress-dots"><div class="dot"></div></div>
+            <div class="activity-item">
+                <div class="activity-left">
+                    <div class="checkbox"></div>
+                    <div class="activity-info">
+                        <h4>💻 Code Literacy</h4>
+                        <p>还是要夯实代码底层基础</p>
+                        <div class="progress-dots">
+                            <div class="dot"></div>
+                        </div>
+                    </div>
                 </div>
+                <div class="activity-right" style="color: #b87d3b;">0/1</div>
             </div>
-            <div class="activity-right">0/1</div>
-        </div>
 
-        <div class="activity-item" data-cate="sport">
-            <div class="activity-left">
-                <div class="checkbox"></div>
-                <div class="activity-info">
-                    <h4>🏃 户外运动</h4>
-                    <p>散步/慢跑半小时</p>
-                    <div class="progress-dots"><div class="dot"></div><div class="dot"></div></div>
+            <div class="activity-item">
+                <div class="activity-left">
+                    <div class="checkbox"></div>
+                    <div class="activity-info">
+                        <h4>🔗 Workflow Design</h4>
+                        <p>把AI嵌入日常工具链</p>
+                        <div class="progress-dots">
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                        </div>
+                    </div>
                 </div>
+                <div class="activity-right" style="color: #b87d3b;">0/2</div>
             </div>
-            <div class="activity-right">0/2</div>
         </div>
     </div>
-</div>
 
-<div class="card">
-    <div style="color:var(--muted);font-size:16px;margin-bottom:10px;">今日随笔</div>
-    <textarea class="note-area" rows="4" placeholder="记录心情、感悟、待办小事..."></textarea>
-</div>
+    <!-- 日常 模块 -->
+    <div class="tab-content" id="daily">
+        <div class="card">
+            <div class="date-header">
+                <div class="date-info">
+                    <div class="day">27</div>
+                    <div class="month">May 2026</div>
+                    <div class="streak" style="color: #6a9955;">🔥 7 DAYS STREAK</div>
+                </div>
+                <div class="week-progress">
+                    <div class="progress-ring" style="background: conic-gradient(#6a9955 70%, transparent 0%);"></div>
+                    <div style="text-align: center; margin-top: 10px; color: var(--muted);">THIS WEEK</div>
+                </div>
+            </div>
+        </div>
 
-<script>
-    // 深色模式
-    const toggleBtn = document.getElementById('toggleDark');
-    toggleBtn.addEventListener('click', () => {
-        document.body.classList.toggle('dark-mode');
-    });
+        <div class="card timer-section">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div style="color: var(--muted); font-size: 16px;">01 TIMER</div>
+            </div>
+            <div class="timer">
+                <span>00:00</span>
+                <div style="font-size:14px; color:var(--muted);">TODAY'S 日常 TOTAL: 13M</div>
+                <button class="timer-btn" style="background-color: #6a9955;">▶ Start</button>
+            </div>
+        </div>
 
-    // 勾选任务
-    const checkboxes = document.querySelectorAll('.checkbox');
-    checkboxes.forEach(box => {
-        box.addEventListener('click', () => box.classList.toggle('checked'));
-    });
+        <div class="card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <div style="color: var(--muted); font-size: 16px;">02 TODAY'S ACTIVITIES</div>
+                <div style="color: var(--muted);">5D LEFT</div>
+            </div>
 
-    // 计时器
-    const timerBtn = document.querySelector('.timer-btn');
-    const timerDisplay = document.querySelector('.timer span');
-    let timerInterval, isRunning = false, sec = 0;
-    timerBtn.addEventListener('click', () => {
-        if (!isRunning) {
-            isRunning = true;
-            timerBtn.innerHTML = '⏸ Pause';
-            timerInterval = setInterval(() => {
-                sec++;
-                const m = String(Math.floor(sec/60)).padStart(2,'0');
-                const s = String(sec%60).padStart(2,'0');
-                timerDisplay.textContent = `${m}:${s}`;
-            }, 1000);
-        } else {
-            isRunning = false;
-            timerBtn.innerHTML = '▶ Start';
-            clearInterval(timerInterval);
-        }
-    });
+            <div class="activity-item">
+                <div class="activity-left">
+                    <div class="checkbox"></div>
+                    <div class="activity-info">
+                        <h4>📍 3 个强制函数</h4>
+                        <p>丢弃*5、归位*5、截图清理*5</p>
+                        <div class="progress-dots">
+                            <div class="dot filled" style="background-color: #e9ee80;"></div>
+                            <div class="dot filled" style="background-color: #e9ee80;"></div>
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="activity-right" style="color: #6a9955;">2/7</div>
+            </div>
 
-    // 标签切换（你要的功能！）
-    const tabs = document.querySelectorAll('.tab');
-    const items = document.querySelectorAll('.activity-item');
-    tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            tabs.forEach(t => t.classList.remove('active'));
-            tab.classList.add('active');
-            const target = tab.dataset.tab;
-            items.forEach(item => {
-                if (target === 'all' || item.dataset.cate === target) {
-                    item.style.display = 'flex';
+            <div class="activity-item">
+                <div class="activity-left">
+                    <div class="checkbox"></div>
+                    <div class="activity-info">
+                        <h4>💪 15 分钟自重训练</h4>
+                        <p>有氧+力量</p>
+                        <div class="progress-dots">
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="activity-right" style="color: #6a9955;">0/4</div>
+            </div>
+
+            <div class="activity-item">
+                <div class="activity-left">
+                    <div class="checkbox"></div>
+                    <div class="activity-info">
+                        <h4>🛁 洗澡</h4>
+                        <p>完成基础清洁</p>
+                        <div class="progress-dots">
+                            <div class="dot filled" style="background-color: #80b4e9;"></div>
+                            <div class="dot"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="activity-right" style="color: #6a9955;">1/2</div>
+            </div>
+
+            <div class="activity-item">
+                <div class="activity-left">
+                    <div class="checkbox"></div>
+                    <div class="activity-info">
+                        <h4>🥗 好好做午餐</h4>
+                        <p>要有蛋白质和蔬菜</p>
+                        <div class="progress-dots">
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="activity-right" style="color: #6a9955;">0/4</div>
+            </div>
+
+            <div class="activity-item">
+                <div class="activity-left">
+                    <div class="checkbox checked" style="background-color: #a63d2f; border-color: #a63d2f;"></div>
+                    <div class="activity-info">
+                        <h4>💊 补剂</h4>
+                        <p>铁剂+益生菌+鱼油+钙+维生素</p>
+                        <div class="progress-dots">
+                            <div class="dot filled" style="background-color: #c45555;"></div>
+                            <div class="dot filled" style="background-color: #c45555;"></div>
+                            <div class="dot filled" style="background-color: #c45555;"></div>
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="activity-right" style="color: #6a9955;">3/5</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 小说家 模块 -->
+    <div class="tab-content" id="writer">
+        <div class="card">
+            <div class="date-header">
+                <div class="date-info">
+                    <div class="day">27</div>
+                    <div class="month">May 2026</div>
+                </div>
+                <div class="week-progress">
+                    <div class="progress-ring" style="background: conic-gradient(#a63d2f 0%, transparent 0%);"></div>
+                    <div style="text-align: center; margin-top: 10px; color: var(--muted);">THIS WEEK</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card timer-section">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div style="color: var(--muted); font-size: 16px;">01 TIMER</div>
+            </div>
+            <div class="timer">
+                <span>00:00</span>
+                <button class="timer-btn" style="background-color: #a63d2f;">▶ Start</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <div style="color: var(--muted); font-size: 16px;">02 TODAY'S ACTIVITIES</div>
+                <div style="color: var(--muted);">5D LEFT</div>
+            </div>
+
+            <div class="activity-item">
+                <div class="activity-left">
+                    <div class="checkbox"></div>
+                    <div class="activity-info">
+                        <h4>📚 阅读30页，无论什么</h4>
+                        <p>没有阅读，就没有写作</p>
+                        <div class="progress-dots">
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="activity-right" style="color: #a63d2f;">0/5</div>
+            </div>
+
+            <div class="activity-item">
+                <div class="activity-left">
+                    <div class="checkbox"></div>
+                    <div class="activity-info">
+                        <h4>✒️ 小说更新</h4>
+                        <p>每天2000字的马拉松</p>
+                        <div class="progress-dots">
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="activity-right" style="color: #a63d2f;">0/5</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div style="color: var(--muted); font-size: 16px; margin-bottom: 10px;">03 TODAY'S NOTE</div>
+            <textarea class="note-area" rows="4" placeholder="How was today? What do you want to capture..."></textarea>
+        </div>
+    </div>
+
+    <!-- SmallWOD 模块（这里给你留了个模板，你可以按前面的样子自己加任务） -->
+    <div class="tab-content" id="wod">
+        <div class="card">
+            <div class="date-header">
+                <div class="date-info">
+                    <div class="day">27</div>
+                    <div class="month">May 2026</div>
+                    <div class="streak" style="color: #7a756a;">🔥 0 DAYS STREAK</div>
+                </div>
+                <div class="week-progress">
+                    <div class="progress-ring" style="background: conic-gradient(#7a756a 0%, transparent 0%);"></div>
+                    <div style="text-align: center; margin-top: 10px; color: var(--muted);">THIS WEEK</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card timer-section">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div style="color: var(--muted); font-size: 16px;">01 TIMER</div>
+            </div>
+            <div class="timer">
+                <span>00:00</span>
+                <button class="timer-btn" style="background-color: #7a756a;">▶ Start</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <div style="color: var(--muted); font-size: 16px;">02 TODAY'S ACTIVITIES</div>
+                <div style="color: var(--muted);">5D LEFT</div>
+            </div>
+            <div style="text-align:center; color:var(--muted); padding: 30px 0;">这里可以按你的需求添加新的任务哦~</div>
+        </div>
+    </div>
+
+    <script>
+        // 深色模式切换
+        const toggleBtn = document.getElementById('toggleDark');
+        toggleBtn.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+        });
+
+        // 复选框点击事件
+        const checkboxes = document.querySelectorAll('.checkbox');
+        checkboxes.forEach(box => {
+            box.addEventListener('click', () => {
+                box.classList.toggle('checked');
+            });
+        });
+
+        // 计时器逻辑（通用）
+        let timerInterval;
+        let isRunning = false;
+        let seconds = 0;
+        let activeTimerBtn = null;
+        let activeTimerDisplay = null;
+
+        document.querySelectorAll('.timer-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // 如果点击的不是当前运行的计时器，重置之前的
+                if (activeTimerBtn && activeTimerBtn !== this) {
+                    clearInterval(timerInterval);
+                    isRunning = false;
+                    activeTimerBtn.innerHTML = '▶ Start';
+                    const prevDisplay = activeTimerBtn.parentElement.querySelector('.timer span');
+                    prevDisplay.textContent = '00:00';
+                    seconds = 0;
+                }
+
+                activeTimerBtn = this;
+                activeTimerDisplay = this.parentElement.querySelector('.timer span');
+
+                if (!isRunning) {
+                    isRunning = true;
+                    this.innerHTML = '⏸ Pause';
+                    timerInterval = setInterval(() => {
+                        seconds++;
+                        const mins = String(Math.floor(seconds / 60)).padStart(2, '0');
+                        const secs = String(seconds % 60).padStart(2, '0');
+                        activeTimerDisplay.textContent = `${mins}:${secs}`;
+                    }, 1000);
                 } else {
-                    item.style.display = 'none';
+                    isRunning = false;
+                    this.innerHTML = '▶ Start';
+                    clearInterval(timerInterval);
                 }
             });
         });
-    });
-</script>
+
+        // 标签切换（核心功能）
+        const tabs = document.querySelectorAll('.tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+        const quoteEl = document.getElementById('quote');
+        const quotes = {
+            fluency: '你的吃饭家伙，也是你满足好奇心的家伙',
+            daily: '尽可能去幸福',
+            writer: '写下去，一直写下去，它是最重要的事',
+            wod: '专注当下，保持稳定'
+        };
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // 切换标签激活状态
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+
+                // 切换内容
+                const targetTab = tab.dataset.tab;
+                tabContents.forEach(content => {
+                    content.classList.remove('active');
+                });
+                document.getElementById(targetTab).classList.add('active');
+
+                // 切换顶部标语
+                quoteEl.textContent = quotes[targetTab];
+            });
+        });
+    </script>
 </body>
 </html>
